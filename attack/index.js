@@ -1,19 +1,7 @@
 const express = require("express");
-const ejs = require("ejs");
-const bodyParser = require("body-parser");
-const app = express();
-const path = require("path");
-const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
 
-app.use(express.static("client"));
-app.use(cookieParser());
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "/client"));
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: true }));
+const app = express();
 
 const html = `
     <div>
@@ -28,8 +16,10 @@ const html = `
     </div>
 `;
 
+app.use(express.json());
+
 app.get("/mail/:email", async (req, res) => {
-  console.log("send Verify Email Otp");
+  console.log("Sending verification mail to the user");
 
   const email = req.params.email;
 
@@ -51,13 +41,13 @@ app.get("/mail/:email", async (req, res) => {
 
   transporter.sendMail(mailOptions, (err, success) => {
     if (err) {
-      console.log("Mail not sent.", err);
+      console.log("Mail not sent", err);
     } else {
-      console.log("Success, email has been sent.", success);
+      console.log("Success, email has been sent", success);
     }
   });
 
-  return res.status(200).json({ message: "Otp sent" });
+  return res.status(200).json({ message: "OTP sent" });
 });
 
 app.listen(9000, () => {
