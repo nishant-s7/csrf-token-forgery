@@ -3,30 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/home.css" />
+    <link rel="stylesheet" href="/styles.css" />
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <div class="navbar">
+    <div class="flex flex-col items-center justify-center h-screen">
+      <h1 class="text-5xl font-bold p-4 w-[500px] text-center">Welcome to CSRF Demonstration!</h1>
+      <div class="p-4">
         <% if (isLoggedIn) { %>
-          <form class="buttons" action="/users/delete">
+          <form action="/users/delete">
             <input type="hidden"  name="_csrf"  value="<%= csrfToken %>" />
-            <button class="btn delete" type="submit">Delete Your Account</button>
+            <button class="bg-red-600 text-white hover:bg-red-500 hover:font-bold duration-300 rounded-md px-4 py-2 text-xl font-bold" type="submit">Delete Your Account</button>
           </form>
         <% } else { %>
-          <div class="buttons">
+          <div class="buttons flex gap-8">
             <a href="/users/login">
-              <button class="btn login" type="submit">Login</button>
+              <button class="bg-gray-900 text-white hover:bg-white hover:text-gray-900 border-2 border-gray-950 duration-300 rounded-md px-4 py-2 text-xl font-bold w-28" type="submit">Login</button>
             </a>
             <a href="/users/signup">
-              <button class="btn signUp" type="submit">Sign up</button>
+              <button class="bg-gray-900 text-white hover:bg-white hover:text-gray-900 border-2 border-gray-950 duration-300 rounded-md px-4 py-2 text-xl font-bold w-28" type="submit">Sign up</button>
             </a>
           </div>
         <% } %>
       </div>
-
-      <div class="box"><h1>Welcome to CSRF Demonstration!</h1></div>
     </div>
   </body>
 </html>

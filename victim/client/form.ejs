@@ -1,61 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/form.css" />
-    <title>Document</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Document</title>
   </head>
-  <body>
-   
-    <div class="container">
-        <div class="header">
-            <% if(login) { %>
-            <h2>Please Login Into Your Account!</h2>
-            <% } else { %>
-            <h2>Please Create A New Account!</h2>
-            <% } %>
+<body>
+  <div class="flex min-h-full flex-col justify-center px-6 py-32 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <h2 class="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
+        <% if (login) {%> Sign in to your account <% } else { %> Create a new account <% } %>
+      </h2>
+    </div>
 
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" action="/users/auth" method="POST">
+        <div>
+          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+          <div class="mt-2">
+            <input id="username" name="username" type="text" placeholder="Enter username" required class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
         </div>
 
-      <form action="/users/auth" method="post" class="form">
-        <div class="input_box">
-          <label for="username">Username:</label>
-          <input
-            type="text"
-            required
-            placeholder="Username"
-            id="username"
-            name="username"
-          />
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+          </div>
+          <div class="mt-2">
+            <input id="password" name="password" type="password" placeholder="Enter password" required class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
         </div>
-        <div class="input_box">
-          <label for="password">Password:</label>
-          <input
-            type="password"
-            required
-            placeholder="Password"
-            id="password"
-            name="password"
-          />
-        </div>
+
         <% if(!login) { %>
-        <div class="input_box">
-          <label for="confirmpassword">Confirm:<br>Password</label>
-          <input
-            type="password"
-            required
-            placeholder="confirmpassword"
-            id="confirmpassword"
-            name="confirmpassword"
-          />
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Confirm password</label>
+          </div>
+          <div class="mt-2">
+            <input id="confirmpassword" name="confirmpassword" type="password" placeholder="Enter password" required class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
         </div>
         <% } %>
-        <button type="submit">
-          <% if(login) { %> Login <% } else { %> SignUp <% } %>
-        </button>
+        <div>
+          <button type="submit" class="flex w-full justify-center rounded-md bg-gray-900 border-2 border-gray-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-white hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-300">
+            <% if(login) { %> Sign in <% } else { %> Sign up <% } %>
+          </button>
+        </div>
+
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       </form>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
