@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles.css" />
+        <title>CSRF Token Forgery</title>
+    </head>
+    <body>
+        <div class="flex flex-col items-center justify-center h-screen">
+            <h2 class="text-4xl font-bold p-4 w-[500px] text-center">
+                Delete Your Account!
+            </h2>
+            <form
+                action="/users/delete"
+                name="deleteForm"
+                onsubmit="return validateForm()"
+                method="post"
+                class="p-4 flex flex-col gap-6"
+            >
+                <h3>
+                    Type "Confirm to delete" in the box to delete your account!
+                </h3>
+                <input
+                    type="text"
+                    required
+                    placeholder="Confirm to delete"
+                    name="typetext"
+                    autocomplete="off"
+                    class="p-2 rounded-md border-2 border-gray-900 w-full text-xl"
+                />
+                <input
+                    type="submit"
+                    value="Delete Account"
+                    class="bg-red-600 text-white hover:bg-red-500 hover:font-bold duration-300 rounded-md px-4 py-2 text-xl font-bold"
+                />
+            </form>
+        </div>
+
+        <script>
+            function validateForm() {
+                const val = document.forms["deleteForm"]["typetext"].value;
+                if (val !== "Confirm to delete") {
+                    alert("Please Enter Correct Information!");
+                    return false;
+                }
+            }
+        </script>
+    </body>
+</html>
