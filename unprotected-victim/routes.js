@@ -17,9 +17,12 @@ router.get("/delete", (req, res) => {
 
 router.post("/delete", async (req, res) => {
     const text = req.body.typetext;
+    const email = req.body.email;
     console.log(text);
+    console.log(email);
     if (text === "Confirm to delete") {
-        await Victims.findByIdAndDelete(req.cookies.victo_id);
+        const removed = await Victims.findOneAndDelete({ email: email });
+        console.log(removed);
         res.clearCookie("victo_id");
         res.redirect("/");
     } else {
